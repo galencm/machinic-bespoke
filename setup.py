@@ -13,7 +13,8 @@ name="machinic_bespoke",
     packages=find_packages(),
     install_requires=['redis'],
     dependency_links=[],
-    entry_points = {'console_scripts': ['bespoke-animate = machinic_bespoke.animative:main'
+    entry_points = {'console_scripts': ['bespoke-animate = machinic_bespoke.animative:main',
+                                        'bespoke-doc = machinic_bespoke.bespoke_doc:main'
                                        ],
                             },
 )
