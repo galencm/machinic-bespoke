@@ -26,6 +26,7 @@ def main():
     parser.add_argument("--input", help="input file")
     parser.add_argument("--output", help="output file")
     parser.add_argument("--nop", action="store_true", help="output without any replacements")
+    parser.add_argument("--remove-unmatched", action="store_true", help="remove unmatched code blocks that")
     parser.add_argument("--no-pop", action="store_true", help="do not remove source from potential matches after successful match")
     parser.add_argument("--db-host",  default="127.0.0.1", help="db host ip")
     parser.add_argument("--db-port", type=int, default=6379, help="db port")
@@ -78,12 +79,13 @@ def main():
             pass
 
         if model is not None:
+            matched = False
+            block_to_replace = "```keyling{}```".format(match)
             for source_key in sources:
                 if source_key not in used_sources or args.no_pop is True:
                     source = redis_conn.hgetall(source_key)
                     result = keyling.parse_lines(model, source, source_key, allow_shell_calls=False)
                     if result is not None:
-                        block_to_replace = "```keyling{}```".format(match)
                         image_stanza_template = '![{alt_description}]({image_path} "{description}")'
                         # should add a dedup dict that maps filenames to sources to dump
                         # if using --no-pop
@@ -104,7 +106,12 @@ def main():
                         if not source_key in used_sources:
                             used_sources.append(source_key)
                         # move to next keyling block after match
+                        matched = True
                         break
+
+            if matched is False and args.remove_unmatched is True:
+                # only removes keyling using a valid model
+                input_contents = input_contents.replace(block_to_replace, "", 1)
 
     # when no input file is specfied
     # create a basic markdown sequence of all sources
