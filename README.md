@@ -18,6 +18,14 @@ cd machinic-bespoke/
 pip3 install --editable ./ --user --process-dependency-links
 ```
 
+Setup linting and formatting git commit hooks:
+
+```
+cd machinic-bespoke/
+pre-commit install
+pre-commit install -t commit-msg
+```
+
 ## Usage
 
 create a three frame animated gif from items sequenced with fold-ui (requires [gifsicle](http://www.lcdf.org/gifsicle/)):

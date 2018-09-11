@@ -12,7 +12,7 @@ setup(
     data_files=[("", ["LICENSE.txt"])],
     url="",
     packages=find_packages(),
-    install_requires=["redis"],
+    install_requires=["redis", "pre-commit"],
     dependency_links=[],
     entry_points={
         "console_scripts": [
