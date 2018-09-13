@@ -138,7 +138,7 @@ def main():
                                 block_to_replace, stanza, 1
                             )
 
-                        if not source_key in used_sources:
+                        if source_key not in used_sources:
                             used_sources.append(source_key)
                         # move to next keyling block after match
                         matched = True
