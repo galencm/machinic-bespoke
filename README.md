@@ -35,10 +35,8 @@ create a three frame animated gif from items sequenced with fold-ui (requires [g
 ```
 
 ## Contributing
-This project uses the C4 process 
 
-[https://rfc.zeromq.org/spec:42/C4/](https://rfc.zeromq.org/spec:42/C4/
-)
+[Contribution guidelines](CONTRIBUTING.md)
 
 ## License
 Mozilla Public License, v. 2.0
